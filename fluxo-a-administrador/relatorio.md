@@ -18,17 +18,17 @@
 
 | Campo | Valor |
 |---|---|
-| Nome | [seu nome completo] |
-| RA | [seu RA] |
+| Nome | Danilo de Gois Neves |
+| RA | 245555 |
 | Disciplina | Redes de Computadores |
-| Turma | [sua turma] |
-| Data | [data da realização] |
+| Turma | B-Noturno |
+| Data | 11/05/2026 |
 | Fluxo | **A — Aluno com privilégio de administrador** |
 | SO utilizado | [Windows 10 / Windows 11] |
 | Ferramenta de proxy | Fiddler Classic |
 | Navegador(es) | [Chrome / Edge / Firefox / ...] |
-| Decriptação HTTPS habilitada? | [sim / não] |
-| Certificado Fiddler instalado durante a atividade? | [sim / não] |
+| Decriptação HTTPS habilitada? | sim |
+| Certificado Fiddler instalado durante a atividade? | sim |
 
 ---
 
@@ -36,34 +36,35 @@
 
 ### Captura
 
-<!-- arraste a captura aqui: sessão de http://example.com com Request/Response Raw -->
+<img width="1920" height="1008" alt="ex1" src="https://github.com/user-attachments/assets/5fe9acec-54ad-4f78-a4d0-b8207ac82649" />
+
 
 **Request-line:**
 
 ```http
-[ex: GET / HTTP/1.1]
+GET http://example.com/ HTTP/1.1
 ```
 
 **Status-line:**
 
 ```http
-[ex: HTTP/1.1 200 OK]
+HTTP/1.1 200 OK
 ```
 
 **Cabeçalhos do request:**
 
 | Cabeçalho | Função |
 |---|---|
-| [...] | [...] |
-| [...] | [...] |
-| [...] | [...] |
+| Host | informar o site |
+| User-Agent | informar o navegador |
+| Accept-Language | informar os idiomas suportados |
 
 **Resposta:**
 
 | Campo | Valor observado |
 |---|---|
-| `Content-Type` | [...] |
-| `Content-Length` ou `Transfer-Encoding` | [...] |
+| `Content-Type` | text/html |
+| `Content-Length` ou `Transfer-Encoding` | chunked |
 
 ---
 
@@ -71,89 +72,195 @@
 
 ### Captura
 
-<!-- arraste a captura aqui: Request Raw e Response JSON -->
+<img width="1920" height="1013" alt="ex2" src="https://github.com/user-attachments/assets/08a809b2-a0fc-474a-b3a8-d050a2434db1" />
+
 
 **Request-line completa:**
 
 ```http
-[colar aqui]
+GET https://httpbingo.org/get?aluno=Danilo&curso=redes HTTP/1.1
+Host: httpbingo.org
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="142", "Microsoft Edge";v="142", "Not_A Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+Pragma: no-cache
+
 ```
 
 **Cabeçalhos-chave:**
 
 | Cabeçalho | Valor |
 |---|---|
-| `Host` | [...] |
-| `User-Agent` | [...] |
-| `Accept` | [...] |
+| `Host` | httpbingo.org |
+| `User-Agent` | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0 |
+| `Accept` | text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7 |
 
 **Campos do JSON de resposta:**
 
 ```json
 {
-  "args": [colar valor],
-  "headers": [colar valor resumido],
-  "origin": [colar valor]
+  "args": {
+    "aluno": [
+      "Danilo"
+    ],
+    "curso": [
+      "redes"
+    ]
+  },
+  "headers": {
+    "Accept": [
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate, br, zstd"
+    ],
+    "Accept-Language": [
+      "pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+    ],
+  "origin": "187.92.211.170"
 }
 ```
 
 **Resposta curta:** o que o campo `origin` representa? O `User-Agent` retornado coincide com o enviado?
 
 [resposta]
-
+a origem da requisição, sim
 ---
 
 ## Atividade 3 — POST e envio de formulário
 
 ### Captura
 
-<!-- arraste a captura aqui: POST para /post em Request Raw -->
+<img width="1920" height="968" alt="ex3" src="https://github.com/user-attachments/assets/31117a7f-2977-47bb-a228-aab562682eb1" />
+
 
 **Request-line do POST:**
 
 ```http
-[colar aqui]
+POST https://httpbingo.org/post HTTP/1.1
+Host: httpbingo.org
+Connection: keep-alive
+Content-Length: 185
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="142", "Microsoft Edge";v="142", "Not_A Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Origin: https://httpbingo.org
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://httpbingo.org/forms/post
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+Pragma: no-cache
+
+custname=Danilo&custtel=13999988855&custemail=marcosdomato%40gmail.com&size=medium&topping=bacon&topping=cheese&topping=onion&topping=mushroom&delivery=19%3A00&comments=bota+no+porteiro
 ```
 
 | Cabeçalho | Valor |
 |---|---|
-| `Content-Type` | [...] |
-| `Content-Length` | [...] |
+| `Content-Type` | application/json; charset=utf-8 |
+| `Content-Length` | 185 |
 
 **Corpo do request:**
 
 ```text
-[colar aqui]
+POST https://httpbingo.org/post HTTP/1.1
+Host: httpbingo.org
+Connection: keep-alive
+Content-Length: 185
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="142", "Microsoft Edge";v="142", "Not_A Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Origin: https://httpbingo.org
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://httpbingo.org/forms/post
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+Pragma: no-cache
+
+custname=Danilo&custtel=13999988855&custemail=marcosdomato%40gmail.com&size=medium&topping=bacon&topping=cheese&topping=onion&topping=mushroom&delivery=19%3A00&comments=bota+no+porteiro
 ```
 
 **Campo `form` da resposta:**
 
 ```json
-[colar trecho relevante]
+{
+    "comments": [
+      "bota no porteiro"
+    ],
+    "custemail": [
+      "marcosdomato@gmail.com"
+    ],
+    "custname": [
+      "Danilo"
+    ],
+    "custtel": [
+      "13999988855"
+    ],
+    "delivery": [
+      "19:00"
+    ],
+    "size": [
+      "medium"
+    ],
+    "topping": [
+      "bacon",
+      "cheese",
+      "onion",
+      "mushroom"
+    ]
+  },
+  "json": null
+}
 ```
 
 **Resposta curta:** qual formato codifica o corpo? Qual aba mostra literalmente os bytes enviados: `WebForms` ou `Raw`?
 
 [resposta]
-
+application/x-www-form-urlencoded, raw
 ---
 
 ## Atividade 4 — Status codes
 
 ### Captura
 
-<!-- arraste a captura aqui: lista do Fiddler com as quatro sessões -->
+<img width="400" height="119" alt="ex4" src="https://github.com/user-attachments/assets/a5faad51-dc30-4da5-8b6d-93ce3f9f5f90" />
+
 
 | # | Método | URL | Status-line | Tamanho/body |
 |---|---|---|---|---|
-| 1 | GET | `https://httpbingo.org/status/200` | [...] | [...] |
-| 2 | GET | `https://httpbingo.org/redirect-to?status_code=301&url=/get` | [...] | [...] |
-| 3 | GET | `https://httpbingo.org/status/404` | [...] | [...] |
-| 4 | GET | `https://httpbingo.org/status/500` | [...] | [...] |
+| 1 | GET | `https://httpbingo.org/status/200` | HTTP/1.1 200 OK | 0 |
+| 2 | GET | `https://httpbingo.org/redirect-to?status_code=301&url=/get` | HTTP/1.1 301 Moved Permanently | 0 |
+| 3 | GET | `https://httpbingo.org/status/404` | HTTP/1.1 404 Not Found | 0 |
+| 4 | GET | `https://httpbingo.org/status/500` | HTTP/1.1 500 Internal Server Error | 0 |
 
 **Resposta curta:** no `301`, qual cabeçalho informa o destino do redirecionamento?
 
-[resposta]
+Location
 
 ---
 
@@ -165,7 +272,7 @@
 
 | Cabeçalho | Req/Resp | Valor capturado | Função |
 |---|---|---|---|
-| `Host` | [...] | [...] | [...] |
+| `Host` | httpbingo.org | [...] | [...] |
 | `User-Agent` | [...] | [...] | [...] |
 | `Accept` | [...] | [...] | [...] |
 | `Content-Type` | [...] | [...] | [...] |
