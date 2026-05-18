@@ -1,10 +1,10 @@
 # Laboratório: Inspeção de HTTP/HTTPS com *Debugging Proxy*
 
-> **Disciplina:** Redes de Computadores
-> **Professor:** Claudio Nunes
+> **Disciplina:** Redes de Computadores  
+> **Professor:** Claudio Nunes  
 > **Tópico:** Camada de Aplicação — Protocolos HTTP/1.1 e HTTP/2 sobre TLS
 
-Este documento contém a **fundamentação teórica** da atividade e direciona cada aluno para o roteiro prático apropriado, de acordo com seu nível de privilégio na máquina de laboratório.
+Este repositório contém a fundamentação teórica, o roteiro prático e a template de relatório da atividade de inspeção de HTTP/HTTPS com Fiddler Classic.
 
 ---
 
@@ -12,7 +12,7 @@ Este documento contém a **fundamentação teórica** da atividade e direciona c
 
 - [1. Objetivos de Aprendizagem](#1-objetivos-de-aprendizagem)
 - [2. Pré-requisitos](#2-pré-requisitos)
-- [3. Escolha do Roteiro Prático](#3-escolha-do-roteiro-prático)
+- [3. Roteiro e entrega](#3-roteiro-e-entrega)
 - [4. Fundamentação Teórica](#4-fundamentação-teórica)
   - [4.1. O protocolo HTTP](#41-o-protocolo-http)
   - [4.2. Anatomia de uma mensagem HTTP](#42-anatomia-de-uma-mensagem-http)
@@ -31,10 +31,10 @@ Este documento contém a **fundamentação teórica** da atividade e direciona c
 Ao final desta atividade, o aluno será capaz de:
 
 1. **Descrever** a estrutura de uma mensagem HTTP (linha inicial, cabeçalhos, corpo) em nível de bytes.
-2. **Identificar** os métodos, os códigos de status e os principais cabeçalhos de requests/responses reais.
-3. **Utilizar** um *debugging proxy* (Fiddler Classic como ferramenta de referência) para capturar, inspecionar e, quando aplicável, manipular tráfego HTTP.
+2. **Identificar** métodos, códigos de status e cabeçalhos de requests/responses reais.
+3. **Utilizar** o Fiddler Classic para capturar e inspecionar tráfego HTTP/HTTPS.
 4. **Diferenciar** o comportamento de HTTP e HTTPS na camada de transporte.
-5. **Analisar** fluxos completos como navegação web, submissão de formulário e manutenção de sessão via cookies.
+5. **Analisar** fluxos como navegação web, submissão de formulário e manutenção de sessão via cookies.
 
 ---
 
@@ -48,35 +48,33 @@ Ao final desta atividade, o aluno será capaz de:
 
 ### Ambiente técnico
 
-- Sistema operacional: Windows 10/11 nas máquinas do laboratório. Em máquina pessoal, use Windows 10/11 se for executar o Fluxo A com Fiddler Classic; no Fluxo B, ferramentas equivalentes podem ser usadas quando indicadas no roteiro.
+- Sistema operacional: Windows 10/11.
+- Privilégio de administrador para abrir o Fiddler Classic e instalar/remover temporariamente o certificado raiz do Fiddler.
 - Navegador Chrome, Firefox ou Edge atualizado.
-- Acesso à internet sem bloqueios a sites de teste (`httpbingo.org`, `example.com`, `neverssl.com`).
-- *Debugging proxy*: no laboratório, siga a orientação do professor e use a instalação disponibilizada. Em máquina pessoal, instale o Fiddler Classic a partir do site oficial da Telerik ou pelo `winget`, conforme o roteiro do fluxo escolhido.
+- Acesso à internet sem bloqueio ao domínio `http.aulasrede.com.br`.
+- Fiddler Classic instalado conforme orientação do professor ou a partir do site oficial da Telerik.
 
-> 💡 **Nota sobre o Fiddler Classic.** A Telerik (mantenedora atual) declara que o Fiddler Classic está "sem desenvolvimento ativo", recomendando o Fiddler Everywhere (pago) para uso profissional. Para o propósito didático deste laboratório o Fiddler Classic continua adequado. Nas máquinas do laboratório, use a instalação indicada pelo professor; em máquina pessoal, obtenha a versão gratuita pelo site da Telerik (com cadastro de email) ou pelo gerenciador de pacotes do Windows com `winget install Telerik.Fiddler.Classic`.
+> 💡 **Nota sobre o Fiddler Classic.** A Telerik declara que o Fiddler Classic está sem desenvolvimento ativo, recomendando o Fiddler Everywhere para uso profissional. Para o propósito didático deste laboratório o Fiddler Classic continua adequado.
 
 ### Material
 
-- Template `relatorio.md` presente na pasta do roteiro escolhido.
-- Ferramenta de captura de tela do sistema (Print Screen, Snip & Sketch no Windows, Captura de Tela no macOS, GNOME Screenshot no Linux). As imagens serão **arrastadas diretamente** para o editor web do GitHub no momento de preencher o relatório.
+- Roteiro prático: [`fluxo-a-administrador/roteiro.md`](./fluxo-a-administrador/roteiro.md).
+- Template do relatório: [`fluxo-a-administrador/relatorio.docx`](./fluxo-a-administrador/relatorio.docx).
+- Ferramenta de captura de tela do sistema.
 
 ---
 
-## 3. Escolha do Roteiro Prático
+## 3. Roteiro e entrega
 
-A inspeção de tráfego **HTTPS** pelo Fiddler exige a instalação de um **certificado raiz** no armazenamento de confiança do sistema operacional. Essa operação **requer privilégios de administrador**. Para acomodar laboratórios mistos, há dois roteiros práticos independentes; ambos usam esta fundamentação teórica como referência comum:
+A atividade possui **um único roteiro**, executado com privilégio de administrador, porque a inspeção de HTTPS exige a instalação de um certificado raiz temporário no armazenamento de confiança do sistema operacional.
 
-| Fluxo | Quem usa | Escopo | Pasta |
-|---|---|---|---|
-| **A** | Alunos **COM** privilégio de administrador | Captura e inspeção de HTTP **e HTTPS** (com decriptação TLS) | [`fluxo-a-administrador/`](./fluxo-a-administrador/roteiro.md) |
-| **B** | Alunos **SEM** privilégio de administrador | Captura e inspeção somente de **HTTP em texto claro** + análise teórica de HTTPS | [`fluxo-b-sem-administrador/`](./fluxo-b-sem-administrador/roteiro.md) |
+1. Abra o [`roteiro.md`](./fluxo-a-administrador/roteiro.md).
+2. Baixe o arquivo [`relatorio.docx`](./fluxo-a-administrador/relatorio.docx).
+3. Preencha o relatório localmente, no Word, LibreOffice ou editor compatível.
+4. Use sempre **Inspectors → Request → Raw** e **Inspectors → Response → Raw** no Fiddler para localizar as informações solicitadas.
+5. Exporte o relatório preenchido como PDF e entregue no Microsoft Teams.
 
-> **Teste rápido para decidir o fluxo.** Tente abrir o Fiddler Classic como administrador (clique direito → *Executar como administrador*):
->
-> - O Windows aceita sem pedir senha de outra conta → siga o **[Fluxo A](./fluxo-a-administrador/roteiro.md)**.
-> - O Windows pede credenciais de administrador que você não possui → siga o **[Fluxo B](./fluxo-b-sem-administrador/roteiro.md)**.
-
-> 📝 **Nota sobre avaliação.** Os dois fluxos têm **peso equivalente** na nota final. O Fluxo B substitui a inspeção prática de HTTPS por comparação observacional e análise teórica curta. Cada aluno deve escolher **um único fluxo** no início da aula e segui-lo até o final.
+> Não é necessário fazer fork do repositório nem editar arquivos no GitHub.
 
 ---
 
@@ -84,7 +82,7 @@ A inspeção de tráfego **HTTPS** pelo Fiddler exige a instalação de um **cer
 
 ### 4.1. O protocolo HTTP
 
-O **HyperText Transfer Protocol** (HTTP) é um protocolo de camada de aplicação, baseado em texto (até HTTP/1.1), sem estado, do tipo request/response. Opera por padrão sobre TCP:
+O **HyperText Transfer Protocol** (HTTP) é um protocolo de camada de aplicação, baseado em texto até HTTP/1.1, sem estado, do tipo request/response. Opera por padrão sobre TCP:
 
 | Versão | Transporte | Porta padrão | Característica-chave |
 |---|---|---|---|
@@ -93,26 +91,26 @@ O **HyperText Transfer Protocol** (HTTP) é um protocolo de camada de aplicaçã
 | HTTP/2 | TCP + TLS (ALPN `h2`) | 443 | Binário, multiplexação, *header compression* (HPACK) |
 | HTTP/3 | QUIC (UDP + TLS 1.3) | 443 | Sem *head-of-line blocking*, estabelecimento mais rápido |
 
-**HTTPS** é HTTP encapsulado em TLS. Toda a mensagem HTTP — linha de status, headers e body — é cifrada. Em um cenário típico, sem tecnologias adicionais como ECH (*Encrypted Client Hello*) ou DNS cifrado, IP, porta, DNS e SNI (nome do host) ainda podem ficar visíveis a um observador externo.
+**HTTPS** é HTTP encapsulado em TLS. Toda a mensagem HTTP — linha de status, headers e body — é cifrada. Sem decriptação, IP, porta, DNS e, em cenários típicos, SNI podem ficar visíveis, mas a mensagem HTTP em si não fica legível.
 
 ### 4.2. Anatomia de uma mensagem HTTP
 
 Toda mensagem HTTP/1.x tem a mesma estrutura:
 
-```
+```text
 <linha inicial>            ← request-line OU status-line
 <Header-1>: <valor>        ← zero ou mais linhas de cabeçalho
 <Header-2>: <valor>
 ...
 <linha em branco>          ← CRLF separador
-<corpo opcional>           ← body (pode estar ausente)
+<corpo opcional>           ← body, quando presente
 ```
 
-**Exemplo de request** capturado num navegador:
+**Exemplo de request:**
 
-```
+```http
 GET /get?id=42 HTTP/1.1
-Host: httpbingo.org
+Host: http.aulasrede.com.br
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9
 Accept-Encoding: gzip, deflate, br
@@ -120,26 +118,24 @@ Accept-Language: pt-BR,pt;q=0.9,en;q=0.8
 Connection: keep-alive
 ```
 
-**Exemplo de response** correspondente:
+**Exemplo de response:**
 
-```
+```http
 HTTP/1.1 200 OK
-Date: Wed, 22 Apr 2026 18:23:14 GMT
 Content-Type: application/json
 Content-Length: 287
-Server: Go-http-client/1.1
+Server: go-httpbin
 Access-Control-Allow-Origin: *
-Connection: keep-alive
 
 {
   "args": {"id": ["42"]},
   "headers": { ... },
   "origin": "200.100.50.30",
-  "url": "https://httpbingo.org/get?id=42"
+  "url": "https://http.aulasrede.com.br/get?id=42"
 }
 ```
 
-> 💡 **Formato dos valores em `args` e `headers`.** O serviço `httpbingo.org` (porta Go do clássico `httpbin.org`) retorna os valores de query string e cabeçalhos como **arrays** (`"id": ["42"]`) porque, em HTTP, a mesma chave pode aparecer múltiplas vezes na URL ou nos cabeçalhos. Essa representação é semanticamente mais correta que o formato escalar usado pelo httpbin original.
+> 💡 O serviço usado no laboratório retorna valores de query string e cabeçalhos como arrays porque a mesma chave pode aparecer múltiplas vezes em HTTP.
 
 ### 4.3. Métodos (verbos) HTTP
 
@@ -157,8 +153,6 @@ Connection: keep-alive
 
 ### 4.4. Códigos de status
 
-Agrupados por classe (primeiro dígito):
-
 | Classe | Faixa | Significado | Exemplos frequentes |
 |---|---|---|---|
 | 1xx | 100–199 | Informacional | `100 Continue`, `101 Switching Protocols` |
@@ -169,55 +163,55 @@ Agrupados por classe (primeiro dígito):
 
 ### 4.5. Principais cabeçalhos
 
-**De request** (cliente → servidor):
+**De request:**
 
 | Cabeçalho | Propósito |
 |---|---|
-| `Host` | Nome de domínio do servidor (obrigatório em HTTP/1.1) |
+| `Host` | Nome de domínio do servidor, obrigatório em HTTP/1.1 |
 | `User-Agent` | Identificação do cliente/navegador |
 | `Accept` | Tipos MIME aceitos na resposta |
-| `Accept-Encoding` | Algoritmos de compressão suportados (`gzip`, `br`, `deflate`) |
+| `Accept-Encoding` | Algoritmos de compressão suportados |
 | `Accept-Language` | Idiomas preferidos |
 | `Cookie` | Cookies previamente recebidos |
-| `Authorization` | Credenciais (`Basic`, `Bearer <token>`, etc.) |
+| `Authorization` | Credenciais |
 | `Referer` | URL de origem da requisição |
-| `Content-Type` | MIME do corpo enviado (em POST/PUT) |
-| `Content-Length` | Tamanho do corpo em bytes quando o tamanho é conhecido antecipadamente |
+| `Content-Type` | MIME do corpo enviado |
+| `Content-Length` | Tamanho do corpo em bytes |
 | `If-None-Match` | Validação de cache por ETag |
 
-**De response** (servidor → cliente):
+**De response:**
 
 | Cabeçalho | Propósito |
 |---|---|
 | `Server` | Identificação do software servidor |
 | `Content-Type` | MIME do corpo retornado |
-| `Content-Length` | Tamanho do corpo em bytes quando o tamanho é conhecido antecipadamente |
+| `Content-Length` | Tamanho do corpo em bytes |
 | `Content-Encoding` | Compressão aplicada ao corpo |
 | `Set-Cookie` | Cookie a ser armazenado pelo cliente |
-| `Cache-Control` | Política de cache (`no-store`, `max-age=3600`, `public`) |
+| `Cache-Control` | Política de cache |
 | `ETag` | Identificador de versão do recurso |
-| `Location` | URL para onde redirecionar (usado em 3xx e 201) |
-| `WWW-Authenticate` | Esquema de autenticação exigido (em 401) |
-| `Strict-Transport-Security` | Força uso de HTTPS em acessos futuros (HSTS) |
+| `Location` | URL de redirecionamento |
+| `WWW-Authenticate` | Esquema de autenticação exigido |
+| `Strict-Transport-Security` | Força uso de HTTPS em acessos futuros |
 
 ### 4.6. O papel do *debugging proxy*
 
-Um *debugging proxy* (como Fiddler, mitmproxy, Burp, HTTP Toolkit) é um **man-in-the-middle controlado** usado conscientemente pelo próprio usuário:
+Um *debugging proxy* é um **man-in-the-middle controlado** usado pelo próprio usuário:
 
-```
-[Navegador]  ──►  [Proxy local na porta 8888]  ──►  [Internet]  ──►  [Servidor]
-                          │
-                          ▼
-                 [Interface de inspeção]
+```text
+[Navegador] ──► [Proxy local] ──► [Internet] ──► [Servidor]
+                    │
+                    ▼
+             [Interface de inspeção]
 ```
 
 Para tráfego HTTPS, o proxy:
 
-1. Gera um **certificado raiz próprio**, instalado pelo usuário no armazenamento de confiança.
-2. Emite certificados "falsos" assinados por essa raiz para cada site visitado.
+1. Gera um certificado raiz próprio, instalado pelo usuário no armazenamento de confiança.
+2. Emite certificados temporários assinados por essa raiz para cada site visitado.
 3. Decifra a comunicação no meio e reencripta antes de enviar.
 
-> ⚠️ **Atenção ética.** O certificado raiz do Fiddler, quando instalado, permite a decriptografia de **qualquer** conexão HTTPS feita pela máquina. Ele deve permanecer **apenas** na máquina do estudante e ser **removido ao final do laboratório** — essa exigência está detalhada no roteiro do Fluxo A.
+> ⚠️ **Atenção ética.** O certificado raiz do Fiddler deve permanecer apenas na máquina do estudante e ser removido ao final do laboratório.
 
 ---
 
@@ -231,10 +225,9 @@ Para tráfego HTTPS, o proxy:
 - **RFC 6797** — HTTP Strict Transport Security (HSTS). <https://datatracker.ietf.org/doc/html/rfc6797>
 - MDN Web Docs — HTTP. <https://developer.mozilla.org/en-US/docs/Web/HTTP>
 - Fiddler Classic — Documentação oficial. <https://docs.telerik.com/fiddler/>
-- httpbingo.org — Serviço público de teste HTTP em Go. <https://httpbingo.org/>
-- go-httpbin (repositório do serviço acima). <https://github.com/mccutchen/go-httpbin>
-- KUROSE, J.; ROSS, K. *Redes de Computadores e a Internet*, 8ª ed., Cap. 2 — Camada de Aplicação.
-- TANENBAUM, A. S.; FEAMSTER, N.; WETHERALL, D. *Redes de Computadores*, 6ª ed., Cap. 7 — Camada de Aplicação.
+- go-httpbin. <https://github.com/mccutchen/go-httpbin>
+- KUROSE, J.; ROSS, K. *Redes de Computadores e a Internet*, 8ª ed., Cap. 2.
+- TANENBAUM, A. S.; FEAMSTER, N.; WETHERALL, D. *Redes de Computadores*, 6ª ed., Cap. 7.
 
 ---
 
@@ -242,7 +235,7 @@ Para tráfego HTTPS, o proxy:
 
 | Cabeçalho | Direção | Exemplo de valor |
 |---|---|---|
-| `Host` | Req | `www.example.com` |
+| `Host` | Req | `http.aulasrede.com.br` |
 | `User-Agent` | Req | `Mozilla/5.0 (...)` |
 | `Accept` | Req | `text/html, */*; q=0.1` |
 | `Accept-Encoding` | Req | `gzip, deflate, br` |
@@ -253,7 +246,7 @@ Para tráfego HTTPS, o proxy:
 | `Content-Type` | Ambos | `application/json; charset=utf-8` |
 | `Content-Length` | Ambos | `1342` |
 | `If-None-Match` | Req | `"686897696a7c876b7e"` |
-| `Server` | Resp | `Go-http-client/1.1` |
+| `Server` | Resp | `go-httpbin` |
 | `Set-Cookie` | Resp | `sess=xyz; Path=/; Secure; HttpOnly` |
 | `Cache-Control` | Resp | `max-age=3600, public` |
 | `ETag` | Resp | `"686897696a7c876b7e"` |
@@ -270,7 +263,7 @@ Para tráfego HTTPS, o proxy:
 |---|---|---|
 | 100 | Continue | Resposta intermediária a `Expect: 100-continue` |
 | 200 | OK | Requisição bem-sucedida com corpo |
-| 201 | Created | Recurso criado (comum em `POST`/`PUT`) |
+| 201 | Created | Recurso criado |
 | 204 | No Content | Sucesso sem corpo de resposta |
 | 301 | Moved Permanently | Recurso migrou definitivamente |
 | 302 | Found | Redirecionamento temporário |
@@ -281,7 +274,7 @@ Para tráfego HTTPS, o proxy:
 | 404 | Not Found | Recurso inexistente |
 | 405 | Method Not Allowed | Método não suportado no recurso |
 | 408 | Request Timeout | Cliente demorou a enviar |
-| 418 | I'm a teapot | RFC 2324 (piada tradicional) |
+| 418 | I'm a teapot | RFC 2324 |
 | 429 | Too Many Requests | Rate limiting |
 | 500 | Internal Server Error | Erro genérico do servidor |
 | 502 | Bad Gateway | Gateway/proxy recebeu resposta inválida |
@@ -290,5 +283,5 @@ Para tráfego HTTPS, o proxy:
 
 ---
 
-**Versão:** 3.0 — Mai/2026
+**Versão:** 4.0 — Mai/2026  
 **Licença:** CC BY-NC-SA 4.0
